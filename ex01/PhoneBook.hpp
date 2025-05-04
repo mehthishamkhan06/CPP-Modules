@@ -3,9 +3,9 @@
 
 #include <iostream>
 #include <string>
+#include "Contact.hpp"
 
 
-// #include "Contact.hpp"
 
 class PhoneBook {
 
@@ -18,16 +18,16 @@ public:
     PhoneBook();
 
     // Destructor
-    ~PhoneBook();
+    // ~PhoneBook();
 
     // Method to add a contact
-    void addContact(const Contact contact);
+    void addContact(Contact contact);
 
-    void displaySummary(int index) ;
+    void displaySummary(int index) const;
     // Method to display all contacts
-    void FindContacts() ;
+    void FindContacts() const;
     // Method to display a summary of all contacts
-    void displayContacts();
+    void displayContacts() const;
 };
 
 #endif

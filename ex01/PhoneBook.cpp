@@ -6,11 +6,11 @@ PhoneBook::PhoneBook(){
     return ;
 }
 
-PhoneBook::~PhoneBook(){
-    return ;
-}
+// PhoneBook::~PhoneBook(){
+//     return ;
+// }
 
-void PhoneBook::addContact(const Contact contact){
+void PhoneBook::addContact(Contact contact){
     if (this->_contactCount < 8)
         this->_contactCount++;
     this->_contacts[this->_currentIndex] = contact;
@@ -18,9 +18,9 @@ void PhoneBook::addContact(const Contact contact){
     std::cout << "✅ Contact added successfully." << std::endl;
 }
 
-void    Contact::displaySummary(int index)
+void    PhoneBook::displaySummary(int index) const
 {
-    std::cout << "|" << std::setw(5) << index + 1 << "|";
+    std::cout << "|" << std::setw(10) << index + 1 << "|";
     if (this->_contacts[index].getFirstName().length() > 10)
         std::cout << std::setw(10) << this->_contacts[index].getFirstName().substr(0, 9) + ".";
     else
@@ -35,33 +35,32 @@ void    Contact::displaySummary(int index)
         std::cout << std::setw(10) << this->_contacts[index].getNickName().substr(0, 9) + ".";
     else
         std::cout << std::setw(10) << this->_contacts[index].getNickName();
-    std::cout << "|" << std::endl;
-    std::cout << "+----------+----------+----------+----------+" << std::endl;  
+    std::cout << "|" << std::endl;  
 }
 
-static void PhoneBook::displayContacts() const {
+void PhoneBook::displayContacts() const {
     std::cout << "+----------+----------+----------+----------+\n";
     std::cout << "|   Index  |First Name| Last Name| Nickname |\n";
     std::cout << "+----------+----------+----------+----------+\n";
 
     for (int i = 0; i < this->_contactCount; i++) {
-        this->_contacts[i].displaySummary(i);
+        this->displaySummary(i);
     }
     std::cout << "+----------+----------+----------+----------+\n";
 }
 
-void PhoneBook::FindContacts(void) const{
+void PhoneBook::FindContacts() const{
 
     std::string index;
     PhoneBook::displayContacts();
-    std::cout << "Enter index of contact to view: ";
-    if (!std::getline(std::cin, index))
-        return ;
-    whilw(true)
+    while(true)
     {
+        std::cout << "Enter index of contact to view: ";
+        if (!std::getline(std::cin, index))
+            return ;
         if (index.length() == 1 && std::isdigit(index[0]))
         {
-            int i = index[0] - '0';
+            int i = index[0] - '0' - 1;
             if (i >= 0 && i < this->_contactCount)
             {
                 this->_contacts[i].displayFull();
@@ -70,7 +69,5 @@ void PhoneBook::FindContacts(void) const{
             else
                 std::cout << "Invalid index. Please try again." << std::endl;
         }
-        else
-            std::cout << "Invalid input. Please enter a number." << std::endl;
     }
 }

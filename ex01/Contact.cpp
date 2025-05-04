@@ -137,11 +137,12 @@ std::string Contact::getDarkestSecret(void) const{
 void Contact::displayFull() const
 {
     std::cout << "+-------------------------------------------+" << std::endl;
-    std::cout << "|                 Contact                   |" << std::endl;
-    std::cout << "First Name: " << this->_first_name << std::endl;
-    std::cout << "Last Name: " << this->_last_name << std::endl;
-    std::cout << "NickName: " << this->_nickname << std::endl;
-    std::cout << "Phone Number: " << this->_phone_number << std::endl;
-    std::cout << "Darkest Secret: " << this->_darkest_secret << std::endl;
-    std::cout << "+-------------------------------------------+" << std::endl;
+    std::cout << "|              Contact Details              |" << std::endl;
+    std::cout << "+----------------------+--------------------+" << std::endl;
+    std::cout << "| First Name           | " << std::setw(18) << std::left << this->_first_name << " |" << std::endl;
+    std::cout << "| Last Name            | " << std::setw(18) << std::left << this->_last_name << " |" << std::endl;
+    std::cout << "| Nickname             | " << std::setw(18) << std::left << this->_nickname << " |" << std::endl;
+    std::cout << "| Phone Number         | " << std::setw(18) << std::left << this->_phone_number << " |" << std::endl;
+    std::cout << "| Darkest Secret       | " << std::setw(18) << std::left << this->_darkest_secret << " |" << std::endl;
+    std::cout << "+----------------------+--------------------+" << std::endl;
 }
