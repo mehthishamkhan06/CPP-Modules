@@ -69,5 +69,7 @@ void PhoneBook::FindContacts() const{
             else
                 std::cout << "Invalid index. Please try again." << std::endl;
         }
+        else
+            std::cout << "Invalid input." << std::endl;
     }
 }

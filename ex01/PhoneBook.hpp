@@ -6,13 +6,12 @@
 #include "Contact.hpp"
 
 
-
 class PhoneBook {
 
 private:
     Contact _contacts[8]; // Array to store up to 8 contacts
-    int _contactCount;    // Number of contacts currently stored
-    int _currentIndex;    // Current index for adding new contacts
+    int     _contactCount;    // Number of contacts currently stored
+    int     _currentIndex;    // Current index for adding new contacts
 public:
     // Constructor
     PhoneBook();
