@@ -6,15 +6,15 @@ PhoneBook::PhoneBook(){
     return ;
 }
 
-// PhoneBook::~PhoneBook(){
-//     return ;
-// }
+PhoneBook::~PhoneBook(){
+    return ;
+}
 
 void PhoneBook::addContact(Contact contact){
     if (this->_contactCount < 8)
         this->_contactCount++;
     this->_contacts[this->_currentIndex] = contact;
-    this->_currentIndex = (this->_currentIndex + 1) % 8; // Wrap around to the beginning
+    this->_currentIndex = (this->_currentIndex + 1) % 8; 
     std::cout << "✅ Contact added successfully." << std::endl;
 }
 

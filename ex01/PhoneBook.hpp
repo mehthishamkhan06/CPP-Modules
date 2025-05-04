@@ -18,7 +18,7 @@ public:
     PhoneBook();
 
     // Destructor
-    // ~PhoneBook();
+    ~PhoneBook();
 
     // Method to add a contact
     void addContact(Contact contact);

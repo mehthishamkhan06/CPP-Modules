@@ -14,7 +14,10 @@ int main(void)
 		std::cout << "+-------------------------------------------+" << std::endl;
 		std::cout << "Enter a Command: ";
         if (!std::getline(std::cin, command))
+        {
+            std::cout << std::endl;
             break ;
+        }
         if (command == "EXIT")
             break ;
         else if (command == "ADD")

@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <string>
-#include <iomanip> // for std::setw
-#include <cctype>  // for std::isdigit
+#include <iomanip>
+#include <cctype>
 
 class Contact {
 
@@ -37,7 +37,6 @@ class Contact {
         std::string getDarkestSecret(void) const;
 
         // Display methods
-        // void displaySummary(int index);
         void displayFull() const;
 };
 
