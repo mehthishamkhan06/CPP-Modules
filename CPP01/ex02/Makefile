@@ -1,7 +1,7 @@
 CXX         := c++
 CXXFLAGS    := -Wall -Wextra -Werror -std=c++98
-NAME        := ZombieHorde
-SRCS        := main.cpp zombieHorde.cpp Zombie.cpp
+NAME        := Brainz
+SRCS        := main.cpp
 OBJS        := $(SRCS:.cpp=.o)
 
 # Colors
