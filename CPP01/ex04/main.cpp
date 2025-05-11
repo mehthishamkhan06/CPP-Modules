@@ -3,10 +3,21 @@
 
 int main(int argc, char *argv[])
 {
+
     if (argc == 4)
     {
-        Search_And_Replace(argv);
+        File::inputFile.open(argv[1]);
+        if (inputFile)
+        {
+            if (inputFile.is_open())
+                Search_And_Replace(inputFile, argv);
+            else
+                std::cerr << "File Not Opened" << std::endl;
+        }
+        else 
+            std::cerr << "File Doesn't Exist" << std::endl;
     }
     else
         display_error();
+    return (0);
 }
