@@ -1,5 +1,5 @@
 #ifndef FILE_HPP
-#define FILE_HPP
+# define FILE_HPP
 
 #include <iostream>
 #include <fstream>
@@ -9,19 +9,20 @@ class File
 {
     public:
         File();
-        std::ifstream inputFile;
-
+        
         void Search_And_Replace(char **argv);
         void display_error() const;
+        bool openFile(const std::string &filename);
         ~File();
-
-    private:
+        
+        private:
+        std::ifstream _inputFile;
         std::string _tofind;
         std::string _toreplace;
         std::string _replacefile;
         std::ofstream _repfile;
-        std::string _fileContent;
+        std::string _fileContentline;
 
-    void readFile();
-    void writeFile(const std::string &newContent);
 };
+
+#endif

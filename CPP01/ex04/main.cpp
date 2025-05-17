@@ -1,23 +1,16 @@
-#include <iostream>
-#include <string>
+#include "File.hpp"
 
 int main(int argc, char *argv[])
 {
-
+    File file;
     if (argc == 4)
     {
-        File::inputFile.open(argv[1]);
-        if (inputFile)
-        {
-            if (inputFile.is_open())
-                Search_And_Replace(inputFile, argv);
-            else
-                std::cerr << "File Not Opened" << std::endl;
-        }
+        if (file.openFile(argv[1]))
+            file.Search_And_Replace(argv);
         else 
-            std::cerr << "File Doesn't Exist" << std::endl;
+            std::cerr << "Error: Cannot open input or output file." << std::endl;
     }
     else
-        display_error();
+        file.display_error();
     return (0);
 }
