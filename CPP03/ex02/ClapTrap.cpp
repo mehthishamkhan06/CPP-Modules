@@ -1,12 +1,12 @@
 #include "ClapTrap.hpp"
 
 
-ClapTrap::ClapTrap() : _name("Default"), _hitPoints(10), _energyPoints(10), _attackDamage(0)
+ClapTrap::ClapTrap() : _name("Default"), _hitPoints(100), _energyPoints(100), _attackDamage(30)
 {
     std::cout << "Default Constructor Called" << std::endl; 
 }
 
-ClapTrap::ClapTrap(const std::string& name): _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
+ClapTrap::ClapTrap(const std::string& name): _name(name), _hitPoints(100), _energyPoints(100), _attackDamage(30)
 {
     std::cout << "ClapTrap " << this->_name << " created sucessfully.!" << std::endl;
 }
@@ -57,7 +57,7 @@ void ClapTrap::takeDamage(unsigned int amount)
         return;
     }
 
-    this->_hitPoints -= (int)amount;
+    this->_hitPoints -= amount;
     if (this->_hitPoints < 0) {
         this->_hitPoints = 0;
     }
@@ -74,7 +74,7 @@ void ClapTrap::beRepaired(unsigned int amount)
         std::cout << "ClapTrap " << this->_name << " is out of energy points and cannot be repaired!" << std::endl;
         return;
     }
-    this->_hitPoints += (int)amount;
+    this->_hitPoints += amount;
     this->_energyPoints--;
     std::cout << "ClapTrap " << this->_name << " repairs itself for " << amount << " hit points! Hit points now: " << this->_hitPoints << std::endl;
 }

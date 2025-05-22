@@ -1,9 +1,9 @@
 #include "ClapTrap.hpp"
 
 int main() {
+    ClapTrap c1("Zapper");
     ClapTrap c2(c1); // Test copy constructor
     ClapTrap c3;
-    ClapTrap c1("Zapper");
     c3 = c1;         // Test assignment operator
 
     c1.attack("Skag");
