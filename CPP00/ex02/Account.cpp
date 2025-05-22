@@ -3,18 +3,27 @@
 #include <ctime>
 
 
-Account::Account(): _accountIndex(0), _amount(0), _nbDeposits(0), _nbWithdrawals(0) {
-
-}
+// Static member initialization
+int Account::_nbAccounts = 0;
+int Account::_totalAmount = 0;
+int Account::_totalNbDeposits = 0;
+int Account::_totalNbWithdrawals = 0;
 
 Account::Account(int initial_deposit) : _accountIndex(_nbAccounts), _amount(initial_deposit), _nbDeposits(0), _nbWithdrawals(0) {
-    _totalAmount += initial_deposit;
-    _nbAccounts++;
-    _displayTimestamp();
-    std::cout << "index:" << _accountIndex << ";amount:" << initial_deposit << ";created" << std::endl;
+    this->_totalAmount += initial_deposit;
+    this->_nbAccounts++;
+    this->_displayTimestamp();
+    std::cout << "index:" << this->_accountIndex << ";amount:" << this->_amount << ";created" << std::endl;
 }
 
 Account::~Account() {
-    _displayTimestamp();
-    std::cout << "index:" << _accountIndex << ";amount:" << _amount << ";closed" << std::endl;
+    this->_displayTimestamp();
+    std::cout << "index:" << this->_accountIndex << ";amount:" << this->_amount << ";closed" << std::endl;
+}
+
+
+void Account::makeDeposit(int deposit){
+    this->_displayTimestamp();
+    std::cout <<"index: " << this->_accountIndex << ";amount" << this->_amount << std::endl;
+    this->_amount = this->_nbDeposits;
 }
