@@ -1,33 +1,33 @@
-#include "FragTrap.hpp"
+#include "DiamondTrap.hpp"
 #include <iostream>
 
 int main() {
-    FragTrap frag("Fraggy");
+    std::cout << "Creating DiamondTrap A...\n";
+    DiamondTrap dtA("Aegis");
 
-    std::cout << std::endl;
+    std::cout << "\nTesting attack...\n";
+    dtA.attack("TargetDummy");
 
-    frag.attack("ClapMaster");
-    frag.takeDamage(5);
-    frag.beRepaired(3);
+    std::cout << "\nTesting takeDamage...\n";
+    dtA.takeDamage(30);
 
-    std::cout << std::endl;
+    std::cout << "\nTesting beRepaired...\n";
+    dtA.beRepaired(20);
 
-    frag.highFiveGuys(); // Should print a high five request
+    std::cout << "\nTesting whoAmI...\n";
+    dtA.whoAmI();
 
-    std::cout << std::endl;
+    std::cout << "\nCreating DiamondTrap B (copy of A)...\n";
+    DiamondTrap dtB(dtA);  // Copy constructor
 
-    // Testing when FragTrap is out of energy
-    for (int i = 0; i < 10; ++i) {
-        frag.attack("DummyTarget");
-    }
+    std::cout << "\nAssigning DiamondTrap C to A...\n";
+    DiamondTrap dtC;
+    dtC = dtA;  // Copy assignment operator
 
-    frag.highFiveGuys(); // Should now print that it can't do a high five (no energy left)
+    std::cout << "\nCalling whoAmI on B and C...\n";
+    dtB.whoAmI();
+    dtC.whoAmI();
 
-    std::cout << std::endl;
-
-    // Testing when FragTrap is out of hit points
-    frag.takeDamage(100);
-    frag.highFiveGuys(); // Should now print that it can't do a high five (no HP)
-
+    std::cout << "\nEnd of main, destructors will be called...\n";
     return 0;
 }

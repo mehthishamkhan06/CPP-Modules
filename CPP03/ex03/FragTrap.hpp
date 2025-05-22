@@ -6,7 +6,7 @@
 #include <string>
 
 
-class FragTrap : public ClapTrap
+class FragTrap : virtual public ClapTrap
 {
     private:
         bool _highFives;
