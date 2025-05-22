@@ -1,23 +1,17 @@
 #include "File.hpp"
 
-
-File::File()
-{
+File::File(){
 
 }
 
-File::~File()
-{
+File::~File(){
     if (_inputFile.is_open())
         _inputFile.close();
     if (_repfile.is_open())
         _repfile.close();
 }
 
-
-
-bool File::openFile(const std::string &filename)
-{
+bool File::openFile(const std::string &filename){
     _inputFile.open(filename.c_str());
     if (!_inputFile.is_open())
         return (false);
@@ -25,8 +19,8 @@ bool File::openFile(const std::string &filename)
     this-> _repfile.open(_replacefile.c_str());
     return (_repfile.is_open());
 }
-void File::Search_And_Replace(char **argv)
-{
+
+void File::Search_And_Replace(char **argv){
     this-> _tofind = argv[2];
     this-> _toreplace = argv[3];
     if (this->_tofind.empty()) {
@@ -50,7 +44,7 @@ void File::Search_And_Replace(char **argv)
     }
     
 }
-void File::display_error() const
-{
+
+void File::display_error() const{
     std::cerr << "Error: Invalid arguments. Usage: ./replace <filename> <s1> <s2>" << std::endl;
 }
