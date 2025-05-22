@@ -25,7 +25,7 @@ Fixed::Fixed(const Fixed &object)
 
 Fixed::~Fixed()
 {
-    std::cout << "Default destructor called" << std::endl;
+    std::cout << "Destructor called" << std::endl;
 }
 
 Fixed& Fixed::operator=(Fixed const &right_value)
