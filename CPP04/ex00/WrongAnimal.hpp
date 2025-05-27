@@ -12,9 +12,9 @@ class WrongAnimal
         WrongAnimal();
         WrongAnimal(const WrongAnimal &copy);
         WrongAnimal &operator=(const WrongAnimal &copy);
-        virtual ~WrongAnimal();
+        ~WrongAnimal();
 
-        virtual void makeSound() const;
+        void makeSound() const;
         std::string getType() const;
 };
 
