@@ -1,48 +1,47 @@
 #include "ClapTrap.hpp"
+#include <iostream>
 
 int main() {
+    std::cout << "\n--- Object Construction Tests ---\n";
     ClapTrap defaultTrap;
-
-    ClapTrap namedTrap("Zapper"); // Parameterized constructor test
-
-    ClapTrap copyTrap(namedTrap); // Test copy constructor
-
-    // Test assignment operator
+    ClapTrap namedTrap("Zapper");
+    ClapTrap copyTrap(namedTrap);
     ClapTrap assignedTrap;
     assignedTrap = namedTrap;
 
-    // Test attack (should succeed)
+
+    std::cout << "\n--- Basic Attack Test ---\n";
     namedTrap.attack("Skag");
 
-    // Test takeDamage (normal case)
+    std::cout << "\n--- Take Damage Test (HP should reduce by 3) ---\n";
     namedTrap.takeDamage(3);
 
-    // Test beRepaired (should succeed)
+    std::cout << "\n--- Repair Test (+2 HP) ---\n";
     namedTrap.beRepaired(2);
 
-    // Test takeDamage (reduce HP to 0)
+    std::cout << "\n--- Overkill Damage Test (reduce HP to 0) ---\n";
     namedTrap.takeDamage(15);
-
-    // Test beRepaired when HP is 0 (should fail)
+    std::cout << "\n--- Repair After Death (should fail) ---\n";
     namedTrap.beRepaired(5);
 
-    // Test attack when HP is 0 (should fail)
+    std::cout << "\n--- Attack After Death (should fail) ---\n";
     namedTrap.attack("Bandit");
 
-    // Test attack with no energy points
+    std::cout << "\n--- Energy Depletion Test ---\n";
     ClapTrap lowEnergy("LowEnergy");
-    // Drain energy
-    for (int i = 0; i < 10; ++i) lowEnergy.attack("Dummy");
-    // Should fail due to no energy
+    for (int i = 0; i < 10; ++i) {
+        lowEnergy.attack("Dummy");
+    }
+    std::cout << "[Attempting to attack with 0 energy]\n";
     lowEnergy.attack("Dummy");
 
-    // Test beRepaired with no energy points
+    std::cout << "\n--- Repair With No Energy (should fail) ---\n";
     lowEnergy.beRepaired(1);
 
-    // Test attack with empty target
+    std::cout << "\n--- Empty Target Attack (should handle gracefully) ---\n";
     defaultTrap.attack("");
 
-    // Test takeDamage when already at 0 HP
+    std::cout << "\n--- Taking Damage When Already at 0 HP (should not go negative) ---\n";
     namedTrap.takeDamage(1);
 
     return 0;

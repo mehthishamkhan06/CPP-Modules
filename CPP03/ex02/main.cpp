@@ -2,32 +2,30 @@
 #include <iostream>
 
 int main() {
+    std::cout << "\n--- FragTrap Creation ---\n";
     FragTrap frag("Fraggy");
 
-    std::cout << std::endl;
-
+    std::cout << "\n--- Basic Attack, Damage, Repair ---\n";
     frag.attack("ClapMaster");
     frag.takeDamage(5);
     frag.beRepaired(3);
 
-    std::cout << std::endl;
+    std::cout << "\n--- High Five Test (Should Succeed) ---\n";
+    frag.highFiveGuys();
 
-    frag.highFiveGuys(); // Should print a high five request
-
-    std::cout << std::endl;
-
-    // Testing when FragTrap is out of energy
-    for (int i = 0; i < 10; ++i) {
+    std::cout << "\n--- Draining Energy via Attacks ---\n";
+    for (int i = 0; i < 100; ++i) {
         frag.attack("DummyTarget");
     }
 
-    frag.highFiveGuys(); // Should now print that it can't do a high five (no energy left)
+    std::cout << "\n--- High Five With No Energy (Should Fail Gracefully) ---\n";
+    frag.highFiveGuys();
 
-    std::cout << std::endl;
-
-    // Testing when FragTrap is out of hit points
+    std::cout << "\n--- Taking Lethal Damage (HP = 0) ---\n";
     frag.takeDamage(100);
-    frag.highFiveGuys(); // Should now print that it can't do a high five (no HP)
+
+    std::cout << "\n--- High Five With No HP (Should Fail Gracefully) ---\n";
+    frag.highFiveGuys();
 
     return 0;
 }
