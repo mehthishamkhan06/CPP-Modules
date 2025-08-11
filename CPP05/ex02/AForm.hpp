@@ -5,7 +5,7 @@
 #include <string>
 #include "Bureaucrat.hpp"
 
-class Form {
+class AForm {
 	private :
 		const std::string _name;
 		bool _isSigned;
@@ -22,18 +22,19 @@ class Form {
         };
 
 	public :
-		Form();
-		Form(const std::string &name, int signGrade, int executeGrade);
-		Form(const Form &copy);
-		Form &operator=(const Form &copy);
-		~Form();
+		AForm();
+		AForm(const std::string &name, int signGrade, int executeGrade);
+		AForm(const AForm &copy);
+		AForm &operator=(const AForm &copy);
+		~AForm();
 		const std::string &getName() const;
 		bool getIsSigned() const;
 		int getSignGrade() const;
 		int getExecuteGrade() const;
 		void beSigned(const Bureaucrat &bureaucrat);
+        virtual void execute(Bureaucrat const &executor) const = 0;
 };
 
-std::ostream& operator<<(std::ostream &out, const Form &copy);
+std::ostream& operator<<(std::ostream &out, const AForm &copy);
 
 #endif
