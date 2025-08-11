@@ -32,7 +32,7 @@ class Bureaucrat {
         void gradeIncrement();
         std::string getName() const;
         int getGrade() const;
-        void signForm(const class AForm &form) const;
+        void signForm(AForm &form);
         void executeForm(const AForm &form) const;
 };
 

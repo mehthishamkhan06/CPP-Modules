@@ -1,4 +1,5 @@
-#include "AAForm.hpp"
+#include "AForm.hpp"
+#include "Bureaucrat.hpp"
 
 AForm::AForm(): _name("Default"), _isSigned(false), _signGrade(150), _executeGrade(150) {
     std::cout << "AForm Default Constructor Called" << std::endl;
@@ -7,21 +8,25 @@ AForm::AForm(): _name("Default"), _isSigned(false), _signGrade(150), _executeGra
 AForm::AForm(const std::string &name, int signGrade, int executeGrade)
     : _name(name), _isSigned(false), _signGrade(signGrade), _executeGrade(executeGrade) {
     std::cout << "AForm Parameterized Constructor Called" << std::endl;
-    try {
+    // try {
+    //     if (signGrade < 1 || executeGrade < 1)
+    //         throw GradeTooHighException();
+    //     if (signGrade > 150 || executeGrade > 150)
+    //         throw GradeTooLowException();
+    // }
+    // catch (const std::exception &e) {
+        //     std::cerr << "Exception: " << e.what() << std::endl;
+        // }
         if (signGrade < 1 || executeGrade < 1)
             throw GradeTooHighException();
         if (signGrade > 150 || executeGrade > 150)
             throw GradeTooLowException();
-    }
-    catch (const std::exception &e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
-    }
 }
 
-    AForm::AForm(const AForm &copy)
-        : _name(copy._name), _isSigned(copy._isSigned), _signGrade(copy._signGrade), _executeGrade(copy._executeGrade) {
-        std::cout << "AForm Copy Constructor Called" << std::endl;
-    }
+AForm::AForm(const AForm &copy)
+    : _name(copy._name), _isSigned(copy._isSigned), _signGrade(copy._signGrade), _executeGrade(copy._executeGrade) {
+    std::cout << "AForm Copy Constructor Called" << std::endl;
+}
 
 AForm &AForm::operator=(const AForm &copy) {
     std::cout << "AForm Assignment Operator Called" << std::endl;
@@ -60,6 +65,17 @@ void AForm::beSigned(const Bureaucrat &bureaucrat) {
     }
     else 
         this->_isSigned = true;
+}
+
+void AForm::execute(Bureaucrat const &executor) const {
+    if (!this->_isSigned) {
+        std::cout << "AForm " << this->_name << " is not signed." << std::endl;
+        return;
+    }
+    if (executor.getGrade() > this->_executeGrade) {
+        throw GradeTooLowException();
+    }
+    execute_forms(executor);
 }
 
 const char* AForm::GradeTooHighException::what() const throw() {
