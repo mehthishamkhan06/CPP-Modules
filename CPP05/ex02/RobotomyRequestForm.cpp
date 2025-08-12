@@ -34,5 +34,15 @@ const std::string &RobotomyRequestForm::getTarget() const {
 }
 
 void RobotomyRequestForm::execute_forms(Bureaucrat const &executor) const {
+    (void)executor; // Suppress unused parameter warning
     std::cout << "Bzzzzzz... " << this->_target << " has been robotomized successfully 50% of the time." << std::endl;
+}
+
+std::ostream &operator<<(std::ostream &out, const RobotomyRequestForm &form) {
+    out << "RobotomyRequestForm: " << form.getName() 
+        << ", Target: " << form.getTarget() 
+        << ", Is Signed: " << (form.getIsSigned() ? "Yes" : "No") 
+        << ", Sign Grade: " << form.getSignGrade() 
+        << ", Execute Grade: " << form.getExecuteGrade();
+    return out;
 }

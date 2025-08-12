@@ -33,7 +33,8 @@ const std::string &PresidentialPardonForm::getTarget() const {
     return this->_target;
 }
 
-void PresidentialPardonForm::execute_forms(){
+void PresidentialPardonForm::execute_forms(Bureaucrat const &executor) const{
+    (void)executor; // Suppress unused parameter warning
     std::cout << this->_target << " has been pardoned by Zaphod Beeblebrox." << std::endl;
 }
 

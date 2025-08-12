@@ -8,7 +8,7 @@ private:
     std::string _target;
 
 protected:
-    void execute_forms();
+    void execute_forms(Bureaucrat const &executor) const;
 
 public:
     PresidentialPardonForm();

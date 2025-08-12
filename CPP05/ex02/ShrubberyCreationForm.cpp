@@ -34,6 +34,7 @@ const std::string &ShrubberyCreationForm::getTarget() const {
 }
 
 void ShrubberyCreationForm::execute_forms(Bureaucrat const &executor) const {
+    (void)executor; // Suppress unused parameter warning
     std::ofstream file(this->_target + "_shrubbery");
     if (!file.is_open()) {
         throw std::ios_base::failure("Failed to open file for writing.");
