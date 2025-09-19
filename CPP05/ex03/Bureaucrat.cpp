@@ -13,23 +13,17 @@ Bureaucrat::~Bureaucrat()
 Bureaucrat::Bureaucrat(std::string name, int grade): _name(name)
 {
     std::cout << "Bureaucrat Name Constructor Called" << std::endl;
-    try{
-        if (_grade > 150)
-            throw GradeTooLowException();
-        else if (_grade < 1)
-            throw GradeTooHighException();
-        else
-            this->_grade = grade;
-    }
-    catch (const std::exception &e){
-        std::cerr << "Exception: " << e.what() << std::endl; 
-    }
+    if (grade > 150)
+        throw GradeTooLowException();
+    else if (grade < 1)
+        throw GradeTooHighException();
+    else
+        this->_grade = grade;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &copy)
+Bureaucrat::Bureaucrat(const Bureaucrat &copy): _name(copy._name), _grade(copy._grade)
 {
     std::cout << "Bureaucrat Copy Constructor called" << std::endl;
-    *this = copy;
 }
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &copy)
 {
@@ -42,29 +36,16 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &copy)
 void Bureaucrat::gradeDecrement()
 {
     std::cout << "Bureaucrat Grade Decrement Called" << std::endl;
-    try {
-        if (this->_grade < 1)
-            throw GradeTooHighException();
-        else if (this->_grade > 150)
+    if (this->_grade >= 150)
             throw GradeTooLowException();
         this->_grade++;
-    } catch (const std::exception &e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
-    }
 }
 void Bureaucrat::gradeIncrement()
 {
     std::cout << "Bureaucrat Grade Increment Called" << std::endl;
-    try {
-        if (this->_grade < 1)
-            throw GradeTooHighException();
-        else if (this->_grade > 150)
-            throw GradeTooLowException();
-        this->_grade--;
-    }
-    catch (const std::exception &e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
-    }
+    if (this->_grade <= 1)
+        throw GradeTooHighException();
+    this->_grade--;
 }
 
 std::string Bureaucrat::getName() const

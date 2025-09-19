@@ -3,6 +3,7 @@
 #include "Bureaucrat.hpp"
 
 int main() {
+    srand(time(NULL));
     Intern someRandomIntern;
     Bureaucrat bob("Bob", 42);
 
