@@ -22,7 +22,7 @@ PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPard
         AForm::operator=(copy);
         this->_target = copy._target;
     }
-    return *this;
+    return (*this);
 }
 
 PresidentialPardonForm::~PresidentialPardonForm() {
@@ -30,11 +30,11 @@ PresidentialPardonForm::~PresidentialPardonForm() {
 }
 
 const std::string &PresidentialPardonForm::getTarget() const {
-    return this->_target;
+    return (this->_target);
 }
 
 void PresidentialPardonForm::execute_forms(Bureaucrat const &executor) const{
-    (void)executor; // Suppress unused parameter warning
+    (void)executor;
     std::cout << this->_target << " has been pardoned by Zaphod Beeblebrox." << std::endl;
 }
 
@@ -44,5 +44,5 @@ std::ostream &operator<<(std::ostream &out, const PresidentialPardonForm &form) 
         << ", Is Signed: " << (form.getIsSigned() ? "Yes" : "No") 
         << ", Sign Grade: " << form.getSignGrade() 
         << ", Execute Grade: " << form.getExecuteGrade();
-    return out;
+    return (out);
 }

@@ -30,12 +30,12 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {
 }
 
 const std::string &ShrubberyCreationForm::getTarget() const {
-    return this->_target;
+    return (this->_target);
 }
 
 void ShrubberyCreationForm::execute_forms(Bureaucrat const &executor) const {
-    (void)executor; // Suppress unused parameter warning
-    std::ofstream file(this->_target + "_shrubbery");
+    (void)executor;
+    std::ofstream file((this->_target + "_shrubbery").c_str());
     if (!file.is_open()) {
         throw std::ios_base::failure("Failed to open file for writing.");
     }
@@ -69,5 +69,5 @@ std::ostream &operator<<(std::ostream &out, const ShrubberyCreationForm &form) {
         << ", Is Signed: " << (form.getIsSigned() ? "Yes" : "No") 
         << ", Sign Grade: " << form.getSignGrade() 
         << ", Execute Grade: " << form.getExecuteGrade();
-    return out;
+    return (out);
 }

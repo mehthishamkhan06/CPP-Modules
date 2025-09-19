@@ -13,9 +13,9 @@ Bureaucrat::~Bureaucrat()
 Bureaucrat::Bureaucrat(std::string name, int grade): _name(name)
 {
     std::cout << "Bureaucrat Name Constructor Called" << std::endl;
-    if (_grade > 150)
+    if (grade > 150)
         throw GradeTooLowException();
-    else if (_grade < 1)
+    else if (grade < 1)
         throw GradeTooHighException();
     else
         this->_grade = grade;

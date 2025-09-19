@@ -6,8 +6,9 @@
 
 int main() {
     try {
+        srand(time(NULL));
         Bureaucrat bob("Bob", 1);
-        Bureaucrat alice("Alice", 150);
+        Bureaucrat alice("Alice", 1);
 
         ShrubberyCreationForm shrubberyForm("Home");
         RobotomyRequestForm robotomyForm("Robot");
