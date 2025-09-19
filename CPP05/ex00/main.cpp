@@ -1,5 +1,6 @@
 #include "Bureaucrat.hpp"
 
+ 
 int main() {
     std::cout << "=== Testing Bureaucrat Class ===" << std::endl;
     
@@ -42,8 +43,8 @@ int main() {
     // Test 5: Boundary values (1 and 150)
     std::cout << "\n--- Test 5: Boundary Values ---" << std::endl;
     try {
-        Bureaucrat highest("Highest", 1);
-        Bureaucrat lowest("Lowest", 150);
+        Bureaucrat highest("Highest", -1);
+        Bureaucrat lowest("Lowest", 160);
         std::cout << highest << std::endl;
         std::cout << lowest << std::endl;
     } catch (const std::exception& e) {

@@ -5,6 +5,7 @@
 #include <string>
 #include "Bureaucrat.hpp"
 
+class Bureaucrat;
 class Form {
 	private :
 		const std::string _name;
@@ -22,15 +23,18 @@ class Form {
         };
 
 	public :
+		//Canonical form
 		Form();
 		Form(const std::string &name, int signGrade, int executeGrade);
 		Form(const Form &copy);
 		Form &operator=(const Form &copy);
 		~Form();
-		const std::string &getName() const;
+		//Getters
+		const std::string &getName() const;	
 		bool getIsSigned() const;
 		int getSignGrade() const;
 		int getExecuteGrade() const;
+		//Member functions
 		void beSigned(const Bureaucrat &bureaucrat);
 };
 

@@ -8,19 +8,10 @@ AForm::AForm(): _name("Default"), _isSigned(false), _signGrade(150), _executeGra
 AForm::AForm(const std::string &name, int signGrade, int executeGrade)
     : _name(name), _isSigned(false), _signGrade(signGrade), _executeGrade(executeGrade) {
     std::cout << "AForm Parameterized Constructor Called" << std::endl;
-    // try {
-    //     if (signGrade < 1 || executeGrade < 1)
-    //         throw GradeTooHighException();
-    //     if (signGrade > 150 || executeGrade > 150)
-    //         throw GradeTooLowException();
-    // }
-    // catch (const std::exception &e) {
-        //     std::cerr << "Exception: " << e.what() << std::endl;
-        // }
-        if (signGrade < 1 || executeGrade < 1)
-            throw GradeTooHighException();
-        if (signGrade > 150 || executeGrade > 150)
-            throw GradeTooLowException();
+    if (signGrade < 1 || executeGrade < 1)
+        throw GradeTooHighException();
+    if (signGrade > 150 || executeGrade > 150)
+        throw GradeTooLowException();
 }
 
 AForm::AForm(const AForm &copy)

@@ -7,21 +7,16 @@ Form::Form(): _name("Default"), _isSigned(false), _signGrade(150), _executeGrade
 Form::Form(const std::string &name, int signGrade, int executeGrade)
     : _name(name), _isSigned(false), _signGrade(signGrade), _executeGrade(executeGrade) {
     std::cout << "Form Parameterized Constructor Called" << std::endl;
-    try {
-        if (signGrade < 1 || executeGrade < 1)
-            throw GradeTooHighException();
-        if (signGrade > 150 || executeGrade > 150)
-            throw GradeTooLowException();
-    }
-    catch (const std::exception &e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
-    }
+    if (signGrade < 1 || executeGrade < 1)
+        throw GradeTooHighException();
+    if (signGrade > 150 || executeGrade > 150)
+        throw GradeTooLowException();
 }
 
-    Form::Form(const Form &copy)
-        : _name(copy._name), _isSigned(copy._isSigned), _signGrade(copy._signGrade), _executeGrade(copy._executeGrade) {
-        std::cout << "Form Copy Constructor Called" << std::endl;
-    }
+Form::Form(const Form &copy)
+    : _name(copy._name), _isSigned(copy._isSigned), _signGrade(copy._signGrade), _executeGrade(copy._executeGrade) {
+    std::cout << "Form Copy Constructor Called" << std::endl;
+}
 
 Form &Form::operator=(const Form &copy) {
     std::cout << "Form Assignment Operator Called" << std::endl;
@@ -50,6 +45,7 @@ int Form::getSignGrade() const {
 int Form::getExecuteGrade() const {
     return this->_executeGrade;
 }
+
 void Form::beSigned(const Bureaucrat &bureaucrat) {
     if (this->_isSigned) {
         std::cout << "Form " << this->_name << " is already signed." << std::endl;
