@@ -34,6 +34,8 @@ int main()
     sp.addNumber(17);
     sp.addNumber(9);
     sp.addNumber(11);
+    Span sp2 = Span(10);
+    sp2.addRange(sp.begin(), sp.end());
     std::cout << sp.shortestSpan() << std::endl;
     std::cout << sp.longestSpan() << std::endl;
     return 0;

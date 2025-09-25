@@ -52,3 +52,10 @@ int Span::shortestSpan() const{
     }
     return (n);
 }
+
+void Span::addMoreNumbers(std::vector<int>::iterator begin, std::vector<int>::iterator end){
+    if (_v.size() + std::distance(begin, end) > _N)
+        throw OutOfBoundException();
+    for (auto it = begin; it != end; ++it)
+        _v.push_back(*it);
+}
