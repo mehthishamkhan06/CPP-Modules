@@ -30,8 +30,9 @@ void ScalarConverter::convert(std::string literal)
         convertFromInt(std::stoi(literal));
     else if (isFloatLiteral(literal))
         convertFromFloat(std::stof(literal));
-    else if (isDoubleLiteral(literal))
+    else if (isDoubleLiteral(literal) || literal == "nan" || literal == "+inf" || literal == "-inf")
         convertFromDouble(std::stod(literal));
+    
     else
         throw std::invalid_argument("Invalid input format"); //replace by custom ones later
 }
