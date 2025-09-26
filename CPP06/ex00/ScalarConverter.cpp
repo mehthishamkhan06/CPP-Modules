@@ -27,14 +27,12 @@ void ScalarConverter::convert(std::string literal)
     if (isCharLiteral(literal))
         convertFromChar(literal[0]);
     else if (isIntLiteral(literal))
-        convertFromInt(std::stoi(literal));
+        convertFromInt(static_cast<int>(strtol(literal.c_str(),0, 10)));
     else if (isFloatLiteral(literal))
-        convertFromFloat(std::stof(literal));
-    else if (isDoubleLiteral(literal) || literal == "nan" || literal == "+inf" || literal == "-inf")
-        convertFromDouble(std::stod(literal));
-    
+        convertFromFloat(strtof(literal.c_str(), 0));
+    else if (isDoubleLiteral(literal))
+        convertFromDouble(strtod(literal.c_str(), 0));
     else
         throw std::invalid_argument("Invalid input format"); //replace by custom ones later
 }
 
-// if (std::isnan(f) || std::isinf(f) || f > static_cast<float>(std::numeric_limits<int>::max()) || f < static_cast<float>(std::numeric_limits<int>::min()))

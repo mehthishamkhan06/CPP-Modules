@@ -7,12 +7,12 @@
 #include <iomanip>
 #include <climits>
 #include <cmath>
+#include <cfloat>
 
 bool isCharLiteral(const std::string &literal);
 bool isIntLiteral(const std::string &literal);
 bool isFloatLiteral(const std::string &literal);
 bool isDoubleLiteral(const std::string &literal);
-bool isPseudoLiteral(const std::string &literal);
 
 void convertFromChar(char c);
 void convertFromInt(int i);

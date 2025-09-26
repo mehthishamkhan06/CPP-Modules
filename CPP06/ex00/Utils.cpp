@@ -82,6 +82,7 @@ void convertFromChar(char c)
     std::cout << "double: " << static_cast<double>(uc) << std::endl;
 }
 
+
 void convertFromInt(int i)
 {
     unsigned char uc = static_cast<unsigned char>(i);
@@ -96,6 +97,7 @@ void convertFromInt(int i)
     std::cout << "float: " << static_cast<float>(i) << "f" << std::endl;
     std::cout << "double: " << static_cast<double>(i) << std::endl;
 }
+
 
 void convertFromFloat(float f)
 {
@@ -115,7 +117,7 @@ void convertFromFloat(float f)
     std::cout << "double: " << static_cast<double>(f) << std::endl;
 }
     
-void converFromDouble(double d)
+void convertFromDouble(double d)
 {
     unsigned char uc =  static_cast<unsigned char>(d);
     if (d < 0 || d > 127 || std::isnan(d) || std::isinf(d))
@@ -123,13 +125,15 @@ void converFromDouble(double d)
     else if (!std::isprint(uc))
         std::cout << "char: Non displayable" << std::endl;
     else
-        std::cout << "char: '" << uc << std::cout << "'" std::endl;
+        std::cout << "char: '" << uc << "'" << std::endl;
     if (std::isnan(d) || std::isinf(d) ||  d > static_cast<double>(INT_MAX) || d < static_cast<double>(INT_MIN))
         std::cout << "int: impossible" << std::endl;
     else
         std::cout << "int: " << static_cast<int>(d) << std::endl;
     std::cout << std::fixed << std::setprecision(1);
-    if (std::isnan(d) || std::isinf(d) || d > static_cast<double>(FLT_MAX) || d < static_cast<double>(FLT_MIN))
+    if (std::isnan(d) || std::isinf(d))
+        std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
+    else if (d > static_cast<double>(FLT_MAX) || d < -static_cast<double>(FLT_MAX))
         std::cout << "float: impossible" << std::endl;
     else
         std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
