@@ -25,16 +25,12 @@ class Span {
         int shortestSpan() const;
         int longestSpan() const;
 
-        template <typename InputIterator>
-        void addRange(InputIterator begin, InputIterator end)
-        {
-            for (InputIterator iter = begin; iter != end; ++iter) {
-                if (_v.size() >= _N)
-                    throw OutOfBoundException();
-                _v.push_back(*iter);
-            }
+        template<typename t>
+        void addMoreNumbers(t begin, t end){
+            if (_v.size() + std::distance(begin, end) > _N)
+                throw OutOfBoundException();
+            _v.insert(_v.end(), begin, end);
         }
-        void addMoreNumbers(std::vector<int>::iterator begin, std::vector<int>::iterator end);
 };
 
 #endif
