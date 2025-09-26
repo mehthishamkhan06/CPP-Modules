@@ -1,4 +1,4 @@
-NAME = serializer
+NAME = Base
 
 SRC = main.cpp Generate.cpp Base.cpp Identify.cpp
 OBJ = $(SRC:.cpp=.o)
