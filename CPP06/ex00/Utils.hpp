@@ -15,7 +15,7 @@ bool isFloatLiteral(const std::string &literal);
 bool isDoubleLiteral(const std::string &literal);
 
 void convertFromChar(char c);
-void convertFromInt(int i);
+void convertFromInt(long i);
 void convertFromFloat(float f);
 void convertFromDouble(double d);
 

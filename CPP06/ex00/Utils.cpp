@@ -83,7 +83,7 @@ void convertFromChar(char c)
 }
 
 
-void convertFromInt(int i)
+void convertFromInt(long i)
 {
     unsigned char uc = static_cast<unsigned char>(i);
     if (i < 0 || i > 127)
@@ -92,7 +92,10 @@ void convertFromInt(int i)
         std::cout << "char: Non displayable" << std::endl;
     else
         std::cout << "char: '" << uc << "'" << std::endl;
-    std::cout << "int: " << i << std::endl;
+    if (i < INT_MIN || i > INT_MAX)
+        std::cout << "int: impossible" << std::endl;
+    else
+        std::cout << "int: " << static_cast<int>(i) << std::endl;
     std::cout << std::fixed << std::setprecision(1);
     std::cout << "float: " << static_cast<float>(i) << "f" << std::endl;
     std::cout << "double: " << static_cast<double>(i) << std::endl;
