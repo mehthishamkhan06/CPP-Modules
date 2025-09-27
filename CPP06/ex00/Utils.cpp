@@ -3,7 +3,7 @@
 
 bool isCharLiteral(const std::string &literal)
 {
-    return literal.length() == 1 && std::isprint(literal[0]);
+    return literal.length() == 1 && std::isprint(literal[0] || !std::isdigit(literal[0]));
 }
 
 bool isIntLiteral(const std::string &literal)
