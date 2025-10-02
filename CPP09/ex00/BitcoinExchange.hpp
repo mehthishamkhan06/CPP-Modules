@@ -15,6 +15,7 @@ class BitcoinExchange{
         std::string data_file;
         void load_data(std::string data_file);
         std::map<std::string, float> data_map;
+    
     public:
         BitcoinExchange();
         BitcoinExchange(std::string file_name);
