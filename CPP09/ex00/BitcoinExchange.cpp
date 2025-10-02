@@ -43,7 +43,35 @@ void BitcoinExchange::load_data(std::string data_file)
     }
     file.close();
 }
+bool is_numeric(const std::string &s)
+{
+    for (size_t i = 0; i < s.size(); ++i)
+    {
+        if (!std::isdigit(s[i]))
+            return false;
+    }
+    return true;
+}
 
+int BitcoinExchange::validate_date(std::string date)
+{
+    if ((date.size() == 10 && date[4] == '-' && date[7] == '-')){
+        std::string year = date.substr(0, 4);
+        std::string month = date.substr(5,2);
+        std::string day = date.substr(8, 2);
+        if (!is_numeric(year) || !is_numeric(month) || !is_numeric(day)){
+            std::cerr << "Error: bad input => " << date << std::endl;
+            return (1);
+        }
+        return(0);
+    }
+    else
+    {
+        std::cerr << "Error: bad input => " << date << std::endl;
+        return (1);
+    }
+    return (0);
+}
 
 void BitcoinExchange::trim_date_and_value(std::string *date, std::string *value)
 {
@@ -53,11 +81,6 @@ void BitcoinExchange::trim_date_and_value(std::string *date, std::string *value)
     value->erase(value->find_last_not_of(' ') + 1);
 }
 
-// void BitcoinExchange::validate_date(std::string date)
-// {
-
-
-// }
 
 void BitcoinExchange::validate_file(std::string file_name)
 {
@@ -73,13 +96,14 @@ void BitcoinExchange::validate_file(std::string file_name)
         if (pipe_pos == std::string::npos)
         {
             std::cerr << "Error: bad input => " << line << std::endl;
-            std::getline(file, line);
+            continue;
         }
         std::string date = line.substr(0, pipe_pos);
         std::string value_str = line.substr(pipe_pos + 1);
         this->trim_date_and_value(&date, &value_str);
-        // this->validate_date(date);
+        if (this->validate_date(date))
+            continue;;
         std::cout << line << std::endl;
     }
     file.close();
-}
+}   
