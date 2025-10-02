@@ -12,6 +12,8 @@
 class BitcoinExchange{
     private:
         void validate_file(std::string file_name);
+        void validate_date(std::string date);
+        void trim_date_and_value(std::string *date, std::string *value);
         std::string data_file;
         void load_data(std::string data_file);
         std::map<std::string, float> data_map;
