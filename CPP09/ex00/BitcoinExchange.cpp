@@ -119,6 +119,15 @@ void BitcoinExchange::trim_date_and_value(std::string *date, std::string *value)
 }
 
 
+int BitcoinExchange::validate_value(std::string value_str)
+{
+    if (!is_numeric(value_str))
+        return (1);
+    double value = std::atof(value_str.c_str());
+    if (value < 0 || value > 1000)
+        return (1);
+    return (0);
+}
 void BitcoinExchange::validate_file(std::string file_name)
 {
     std::ifstream file(file_name.c_str());
@@ -138,8 +147,9 @@ void BitcoinExchange::validate_file(std::string file_name)
         std::string date = line.substr(0, pipe_pos);
         std::string value_str = line.substr(pipe_pos + 1);
         this->trim_date_and_value(&date, &value_str);
-        if (this->validate_date(date))
-            continue;;
+        if (this->validate_date(date) || this->validate_value(value_str))
+            continue;
+        
         std::cout << line << std::endl;
     }
     file.close();
