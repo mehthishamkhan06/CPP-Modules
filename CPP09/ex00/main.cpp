@@ -6,6 +6,7 @@ int main(int argc, char *argv[])
         BitcoinExchange exchange((argv[1]));
     else
     {
+        std::cout << "Error: could not open file." << std::endl;
         std::cout << "Invalid Arguments" << std::endl;
 		std::cout << "Usage: ./btc <file>" << std::endl;
 		return (1);

@@ -1,6 +1,5 @@
 #include "BitcoinExchange.hpp"
 
-
 BitcoinExchange::BitcoinExchange(){
 
 }
@@ -53,13 +52,51 @@ bool is_numeric(const std::string &s)
     return true;
 }
 
+int validate_day(int y, int m, int d)
+{
+    bool is_leap = false;
+    int max_days = 0;
+    if (((y % 4 == 0) && (y % 100 != 0)) || (y % 400 == 0))
+        is_leap = true;
+    if (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12)
+        max_days = 31;
+    else if (m == 4 || m == 6 || m == 9 || m == 11)
+        max_days = 30;
+    else if (m == 2)
+    {
+        if (is_leap == true)
+            max_days = 29;
+        else
+            max_days = 28;
+    }
+    else
+        return (1);
+    if (d < 1 || d > max_days)
+        return (1);
+    return (0);
+}
+int validate_Y_M_D(std::string year, std::string month, std::string day)
+{
+    if (!is_numeric(year) || !is_numeric(month) || !is_numeric(day))
+        return (1);
+    int y = atoi(year.c_str());
+    int m = atoi(month.c_str());
+    int d = atoi(day.c_str());
+    if (m < 0 || m > 12)
+        return (1);
+    if (validate_day(y, m, d))
+        return (1);
+    return (0);
+}
+
 int BitcoinExchange::validate_date(std::string date)
 {
     if ((date.size() == 10 && date[4] == '-' && date[7] == '-')){
         std::string year = date.substr(0, 4);
         std::string month = date.substr(5,2);
         std::string day = date.substr(8, 2);
-        if (!is_numeric(year) || !is_numeric(month) || !is_numeric(day)){
+        if (validate_Y_M_D(year, month, day))
+        {
             std::cerr << "Error: bad input => " << date << std::endl;
             return (1);
         }
