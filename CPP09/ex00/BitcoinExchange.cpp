@@ -52,6 +52,31 @@ bool is_numeric(const std::string &s)
     return true;
 }
 
+bool is_numeric_with_dot(const std::string &s)
+{
+    size_t i = 0;
+    if (s[i] == '-' || s[i] == '+')
+        i++;
+    if (i == s.size())
+    {
+        std::cerr << "Error: bad input => " << s << std::endl;
+        return (false);
+    }
+    int dot_count = 0;
+    for (; i < s.size(); ++i)
+    {
+        if (s[i] == '.')
+        {
+            dot_count++;
+            if (dot_count > 1)
+                return false;
+        }
+        else if (!std::isdigit(s[i]))
+            return false;
+    }
+    return true;
+}
+
 int validate_day(int y, int m, int d)
 {
     bool is_leap = false;
@@ -121,11 +146,25 @@ void BitcoinExchange::trim_date_and_value(std::string *date, std::string *value)
 
 int BitcoinExchange::validate_value(std::string value_str)
 {
-    if (!is_numeric(value_str))
+    if(!value_str.size())
+    {
+        std::cerr << "Error: bad input => " << value_str << std::endl;
         return (1);
+    }
+    if (!is_numeric_with_dot(value_str))
+    {
+        std::cerr << "Error: bad input => " << value_str << std::endl;
+        return (1);
+    }
     double value = std::atof(value_str.c_str());
     if (value < 0 || value > 1000)
+    {
+        if (value < 0)
+            std::cerr << "Error: not a positive number." << std::endl;
+        else
+            std::cerr << "Error: too large a number." << std::endl;
         return (1);
+    }
     return (0);
 }
 void BitcoinExchange::validate_file(std::string file_name)
@@ -147,9 +186,10 @@ void BitcoinExchange::validate_file(std::string file_name)
         std::string date = line.substr(0, pipe_pos);
         std::string value_str = line.substr(pipe_pos + 1);
         this->trim_date_and_value(&date, &value_str);
-        if (this->validate_date(date) || this->validate_value(value_str))
+        if (this->validate_date(date))
             continue;
-        
+        else if (this->validate_value(value_str))
+            continue;
         std::cout << line << std::endl;
     }
     file.close();
