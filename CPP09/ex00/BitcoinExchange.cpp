@@ -9,7 +9,6 @@ BitcoinExchange::BitcoinExchange(std::string file_name)
     this->data_file = "data.csv";
     this->load_data(this->data_file);
     this->validate_file(file_name);
-
 }
 
 BitcoinExchange::BitcoinExchange(BitcoinExchange &copy){
@@ -100,6 +99,7 @@ int validate_day(int y, int m, int d)
         return (1);
     return (0);
 }
+
 int validate_Y_M_D(std::string year, std::string month, std::string day)
 {
     if (!is_numeric(year) || !is_numeric(month) || !is_numeric(day))
@@ -107,7 +107,7 @@ int validate_Y_M_D(std::string year, std::string month, std::string day)
     int y = atoi(year.c_str());
     int m = atoi(month.c_str());
     int d = atoi(day.c_str());
-    if (m < 0 || m > 12)
+    if (m < 1 || m > 12)
         return (1);
     if (validate_day(y, m, d))
         return (1);
@@ -144,17 +144,17 @@ void BitcoinExchange::trim_date_and_value(std::string *date, std::string *value)
 }
 
 
-int BitcoinExchange::validate_value(std::string value_str)
+double BitcoinExchange::validate_value(std::string value_str)
 {
     if(!value_str.size())
     {
         std::cerr << "Error: bad input => " << value_str << std::endl;
-        return (1);
+        return (-1);
     }
     if (!is_numeric_with_dot(value_str))
     {
         std::cerr << "Error: bad input => " << value_str << std::endl;
-        return (1);
+        return (-1);
     }
     double value = std::atof(value_str.c_str());
     if (value < 0 || value > 1000)
@@ -163,9 +163,9 @@ int BitcoinExchange::validate_value(std::string value_str)
             std::cerr << "Error: not a positive number." << std::endl;
         else
             std::cerr << "Error: too large a number." << std::endl;
-        return (1);
+        return (-1);
     }
-    return (0);
+    return (value);
 }
 void BitcoinExchange::validate_file(std::string file_name)
 {
@@ -188,9 +188,29 @@ void BitcoinExchange::validate_file(std::string file_name)
         this->trim_date_and_value(&date, &value_str);
         if (this->validate_date(date))
             continue;
-        else if (this->validate_value(value_str))
+        double value = this->validate_value(value_str);
+        if (value == -1)
             continue;
-        std::cout << line << std::endl;
+        else
+            this->calculate(value, date);
+        // std::cout << line << std::endl;
     }
     file.close();
 }   
+
+void BitcoinExchange::calculate(double value, std::string date)
+{
+    std::map<std::string, double>::iterator it = this->data_map.lower_bound(date);
+    if (it != this->data_map.end() && it->first == date)
+        std::cout << date << " => " << value << " = " << value * it->second << std::endl;
+    else
+    {
+        if (it == this->data_map.begin() && it->first > date)
+        {
+            std::cerr << "Error: no data available for date " << date << std::endl;
+            return;
+        }
+        --it;
+        std::cout << date << " => " << value << " = " << value * it->second << std::endl;
+    }
+}
