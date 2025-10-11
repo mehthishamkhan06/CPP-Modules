@@ -10,14 +10,12 @@
 
 class PmergeMe{
     private:
-        void sort(int &a, int &b);
+        int sort(std::vector<int> &input);
         void init_sorting();
-        // void makepair(int a, int b);
+        void print_vec();
         void parse_input(const std::string &input);
+        void binaryInsert(std::vector<int>& container, int value);
         std::vector<int> _vector;
-        std::vector<int> _main;
-        std::vector<int> _pend;
-        std::vector<int> _left;
         std::deque<int> _deque;
 
     public:
