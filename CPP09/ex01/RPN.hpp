@@ -6,12 +6,15 @@
 
 class RPN {
     private:
-        std::stack<std::string> rpn; 
+        std::stack<int> _stack;
+        void validate(std::string rpn);
+        int evaluate(std::string rpn);
     public:
         RPN();
+        RPN(std::string RPN);
         ~RPN();
-        RPN(RPN &copy);
-        RPN &operator=(RPN &copy);
+        RPN(const RPN &copy);
+        RPN &operator=(const RPN &copy);
 
 };
 

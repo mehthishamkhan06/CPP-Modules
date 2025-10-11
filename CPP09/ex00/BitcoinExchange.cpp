@@ -172,7 +172,7 @@ void BitcoinExchange::validate_file(std::string file_name)
     std::ifstream file(file_name.c_str());
     std::string line;
     if (!file.is_open())
-    throw std::runtime_error("Error: could not open file.");
+        throw std::runtime_error("Error: could not open file.");
     std::getline(file, line);
     while (std::getline(file, line))
     {

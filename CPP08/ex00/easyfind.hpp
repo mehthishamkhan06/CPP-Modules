@@ -5,6 +5,7 @@
 #include <vector>
 #include <list>
 #include <algorithm>
+
 class NoOccuranceFound : public std::exception {
 public:
     const char* what() const throw() {

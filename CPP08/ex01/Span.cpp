@@ -41,14 +41,6 @@ int Span::shortestSpan() const{
     if (temp.size() < 2)
         throw OutOfBoundException();
     std::sort(temp.begin(), temp.end());
-    std::vector<int>::iterator itr;
-    int n = INT_MAX;
-    int diff = 0;
-    for (size_t i = 0; i < (temp.size() - 1); i++)
-    {
-        diff = temp[i + 1] - temp[i];
-        if (diff < n)
-            n = diff;
-    }
-    return (n);
+    std::adjacent_difference(temp.begin(), temp.end(), temp.begin());
+    return (*std::min_element(temp.begin() + 1, temp.end()));
 }
