@@ -10,13 +10,13 @@
 
 class PmergeMe{
     private:
-        // int _threshold;
-        void sort();
+        void sort(int &a, int &b);
         void init_sorting();
-        void makepair(int a, int b);
+        // void makepair(int a, int b);
         void parse_input(const std::string &input);
         std::vector<int> _vector;
         std::vector<int> _main;
+        std::vector<int> _pend;
         std::vector<int> _left;
         std::deque<int> _deque;
 

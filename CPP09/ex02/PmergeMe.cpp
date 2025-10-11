@@ -19,27 +19,19 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &copy){
     return (*this);
 }
 
-void PmergeMe::makepair(int a, int b){
-    if (a > b)
-    {
-        _main.push_back(a);
-        _left.push_back(b);
-    }
-    else
-    {
-        _main.push_back(b);
-        _left.push_back(a);
-    }
+// void PmergeMe::makepair(int a, int b){
 
-}
+// }
 
 void PmergeMe::init_sorting(){
     std::cout << "Initializing sorting..." << std::endl;
+    
     for (size_t i = 0; i < _vector.size(); i+=2){
-        makepair(_vector[i], _vector[i + 1]);
+        sort(_vector[i], _vector[i + 1]);
     }
     for (size_t i = 0; i < this->_main.size(); ++i)
         std::cout << _main[i] << std::endl;
+
 }
 
 void PmergeMe::parse_input(const std::string &input)
@@ -57,9 +49,11 @@ void PmergeMe::parse_input(const std::string &input)
             if (!std::isdigit(token[i]))
                 throw std::runtime_error("Error: Invalid token '" + token + "'");
         }
-        number = std::atoi(token.c_str());      
+        number = std::strtol(token.c_str(), nullptr, 10);
         if (number < 0)
             throw std::runtime_error("Error: Negative numbers not allowed");
+        else if (number > INT_MAX)
+            throw std::runtime_error("Error: Number out of range");
         _vector.push_back(number);
     }
     if (_vector.empty())
@@ -68,7 +62,19 @@ void PmergeMe::parse_input(const std::string &input)
 
 
 
-void PmergeMe::sort(){
+void PmergeMe::sort(int &a, int &b){
     std::cout << "Sorting..." << std::endl;
+    if (a > b)
+    {
+        _main.push_back(a);
+        _pend.push_back(b);
+    }
+    else
+    {
+        _main.push_back(b);
+        _pend.push_back(a);
+    }
+    if (_vector.size() % 2 != 0 && &b == &_vector.back())
+        _left.push_back(b);
 
 }
