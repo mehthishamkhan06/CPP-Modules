@@ -7,14 +7,17 @@
 #include <string>
 #include <vector>
 #include <stack>
-
+#include <climits>
+#include <cstdlib>
 class PmergeMe{
     private:
-        int sort(std::vector<int> &input);
-        void init_sorting();
+        int sort_vector(std::vector<int> &input);
+        int sort_deque(std::deque<int> &input);
         void print_vec();
+        void print_deque();
         void parse_input(const std::string &input);
-        void binaryInsert(std::vector<int>& container, int value);
+        void binaryInsert_vector(std::vector<int>& container, int value);
+        void binaryInsert_deque(std::deque<int>& container, int value);
         std::vector<int> _vector;
         std::deque<int> _deque;
 
