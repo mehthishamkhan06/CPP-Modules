@@ -89,26 +89,72 @@ void PmergeMe::binaryInsert_deque(std::deque<int>& container, int value) {
 
 
 
-std::vector<int> PmergeMe::buildInsertionSequence(int pendingSize) {
+std::vector<int> PmergeMe::buildInsertionSequence_vector(int pendingSize) {
     std::vector<int> seq;
     if (pendingSize <= 0)
         return seq;
-    std::vector<int> jacobsthal;
+    std::vector<int> jacob_seq;
     int a = 1;
     int b = 1;
     while (b < pendingSize) {
-        jacobsthal.push_back(b);
+        jacob_seq.push_back(b);
         int next = b + 2 * a;
         a = b;
         b = next;
     }
+
+    int last_index = 1;
+    seq.push_back(0); // First element is always 0 Speacial Case..!
+
+    for (size_t i = 0; i < jacob_seq.size(); ++i) {
+        int current = jacob_seq[i];
+        for (int j = current - 1; j >= last_index; --j) {
+            if (j < pendingSize)
+                seq.push_back(j);
+        }
+        last_index = current;
+    }
+
+    for (int i = last_index; i < pendingSize; ++i) {
+        seq.push_back(i);
+    }
+
     return seq;
 }
 
-void PmergeMe::generate_jacobsthal_sequence(std::vector<int>& seq, int n)
-{
-    std::cout << "Generating Jacobsthal sequence up to " << n << std::endl;
+std::deque<int> PmergeMe::buildInsertionSequence_deque(int pendingSize) {
+    std::deque<int> seq;
+    if (pendingSize <= 0)
+        return seq;
+    std::deque<int> jacob_seq;
+    int a = 1;
+    int b = 1;
+    while (b < pendingSize) {
+        jacob_seq.push_back(b);
+        int next = b + 2 * a;
+        a = b;
+        b = next;
+    }
+
+    int last_index = 1;
+    seq.push_back(0); // First element is always 0 Speacial Case..!
+
+    for (size_t i = 0; i < jacob_seq.size(); ++i) {
+        int current = jacob_seq[i];
+        for (int j = current - 1; j >= last_index; --j) {
+            if (j < pendingSize)
+                seq.push_back(j);
+        }
+        last_index = current;
+    }
+
+    for (int i = last_index; i < pendingSize; ++i) {
+        seq.push_back(i);
+    }
+
+    return seq;
 }
+
 
 
 void PmergeMe::sort_vector(std::vector<int> &input){
@@ -134,17 +180,19 @@ void PmergeMe::sort_vector(std::vector<int> &input){
         pending.push_back(input.back());
 
     sort_vector(main_chain);
-    
-    std::vector<int> order = buildInsertionSequence(pending.size());
-    for (size_t i = 0; i < pending.size(); ++i)
-        binaryInsert_vector(main_chain, pending[i]);
+
+    std::vector<int> order = buildInsertionSequence_vector(pending.size());
+    for (size_t i = 0; i < order.size(); ++i)
+    {
+        int idx = order[i];
+        binaryInsert_vector(main_chain, pending[idx]);
+    }
     input = main_chain;
-    return;
 }
 
 void PmergeMe::sort_deque(std::deque<int> &input){
     std::deque<int> main_chain;
-    std::deque<int> pending
+    std::deque<int> pending;
     if (input.size() <= 1)
         return;
     for (size_t i = 0; i + 1 < input.size(); i += 2){
@@ -164,8 +212,12 @@ void PmergeMe::sort_deque(std::deque<int> &input){
     if (input.size() % 2 != 0)
         pending.push_back(input.back());
     sort_deque(main_chain);
-    for (size_t i = 0; i < pending.size(); ++i)
-        binaryInsert_deque(main_chain, pending[i]);
+    std::deque<int> order = buildInsertionSequence_deque(pending.size());
+    for (size_t i = 0; i < order.size(); ++i)
+    {
+        int idx = order[i];
+        binaryInsert_deque(main_chain, pending[idx]);
+    }
     input = main_chain;
     return;
 }

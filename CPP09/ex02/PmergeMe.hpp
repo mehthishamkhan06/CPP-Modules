@@ -22,9 +22,9 @@ class PmergeMe{
         void parse_input(const std::string &input);
         void binaryInsert_vector(std::vector<int>& container, int value);
         void binaryInsert_deque(std::deque<int>& container, int value);
-        void generate_jacobsthal_sequence(std::vector<int>& seq, int n);
-        std::vector<int> buildInsertionSequence(size_t n);
-        
+        std::vector<int> buildInsertionSequence_vector(int pendingSize);
+        std::deque<int> buildInsertionSequence_deque(int pendingSize);
+
         std::vector<int> _vector;
         std::deque<int> _deque;
 

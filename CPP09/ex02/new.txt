@@ -1,0 +1,247 @@
+🧩 Step 1 — What “recursive sorting” really means here
+
+Recursion means:
+👉 You apply the same algorithm again and again on smaller subsets of your data
+until you’re down to something trivially sortable (like a list of 1 or 2 numbers).
+
+In the Ford–Johnson algorithm:
+1️⃣ You make pairs.
+2️⃣ You extract winners (larger elements) → _main.
+3️⃣ You extract losers (smaller elements) → _pend.
+4️⃣ Then you recursively sort _main (using the same process).
+5️⃣ Finally, you insert _pend back into the now-sorted _main.
+
+So, recursion just means calling the same logic again on _main.
+
+🧠 Step 2 — The recursive pattern
+
+You can think of it like:
+
+function fordJohnsonSort(container):
+    if container.size() <= 1:
+        return container
+
+    // 1. Pair up elements
+    // 2. Split into main (winners) and pending (losers)
+    // 3. Recursively sort main
+    // 4. Insert all from pending into sorted main using binary insertion
+    // 5. Return main
+
+
+So yes — the algorithm calls itself again on smaller subsets.
+
+⚙️ Step 3 — What happens inside your function
+
+Let’s say your _vector initially is:
+
+[9, 3, 7, 2, 5]
+
+🔹 Step 1: Pair up
+(9,3), (7,2), leftover 5
+
+🔹 Step 2: Split into groups
+_main = [9,7]
+_pend = [3,2,5]
+
+🔹 Step 3: Recursively sort _main
+
+You call the same logic again on [9,7]:
+
+(9,7)
+_main = [9]
+_pend = [7]
+
+
+Then recursively sort [9] → base case (already sorted).
+Then insert 7 into [9] → [7,9].
+
+So now you go back up:
+
+_main (sorted) = [7,9]
+
+_pend = [3,2,5]
+
+🔹 Step 4: Insert _pend into _main
+
+Insert them using binary search:
+
+Insert 3 → [3,7,9]
+Insert 2 → [2,3,7,9]
+Insert 5 → [2,3,5,7,9]
+
+
+Done ✅
+
+🧮 Step 4 — Base case condition
+
+Every recursion must know when to stop.
+
+So:
+
+if (container.size() <= 1)
+    return; // already sorted
+
+
+That’s your base case.
+
+🧠 Step 5 — How to organize your code
+
+You can implement a helper function like this (conceptually):
+
+void PmergeMe::recursiveSort(std::vector<int>& arr) {
+    if (arr.size() <= 1)
+        return;
+
+    // Step 1: Split into main/pending via pairing
+    std::vector<int> main;
+    std::vector<int> pending;
+
+    for (size_t i = 0; i + 1 < arr.size(); i += 2) {
+        int a = arr[i];
+        int b = arr[i + 1];
+        if (a > b) {
+            main.push_back(a);
+            pending.push_back(b);
+        } else {
+            main.push_back(b);
+            pending.push_back(a);
+        }
+    }
+    if (arr.size() % 2 != 0)
+        pending.push_back(arr.back());
+
+    // Step 2: Recursively sort main
+    recursiveSort(main);
+
+    // Step 3: Insert all pending into main (binary search)
+    for (size_t i = 0; i < pending.size(); ++i)
+        binaryInsert(main, pending[i]);
+
+    // Step 4: Replace arr with sorted main
+    arr = main;
+}
+
+
+That’s the core Ford–Johnson recursion structure — in human words:
+
+“Pair, separate, sort the big ones, then slide the small ones back in.”
+
+⚙️ Step 6 — Binary Insertion logic (preview)
+
+binaryInsert(container, value) finds the correct position for value in container using binary search:
+
+Compare with the middle element,
+
+Move left/right accordingly,
+
+Insert at the right index.
+
+That ensures insertion is efficient and order-preserving.
+
+You’ll need this helper for the recursive step.
+
+🧭 Step 7 — Summary of recursion flow
+Step	Action	Description
+1	Check base case	Stop if size ≤ 1
+2	Make pairs	Split into main (larger) and pending (smaller)
+3	Recurse	Sort main again using same algorithm
+4	Insert	Insert all pending (and leftover) into sorted main
+5	Return	Replace current container with sorted result
+💡 Step 8 — When to bring in Jacobsthal
+
+You’ll later modify Step 4 (Insert) to follow Jacobsthal order, but for now just insert linearly.
+
+Once your recursion works correctly and produces sorted output, you can replace:
+
+for (size_t i = 0; i < pending.size(); ++i)
+    binaryInsert(main, pending[i]);
+
+
+with the Jacobsthal-controlled order.
+
+
+
+// Place this function inside your PmergeMe class
+// It will generate the sequence of indices [0, 2, 1, 4, 3, 5, ...]
+std::vector<int> PmergeMe::buildInsertionSequence(int pending_size) {
+    std::vector<int> sequence;
+    if (pending_size == 0) {
+        return sequence;
+    }
+
+    // 1. Generate the Jacobsthal numbers up to the size of the pending chain
+    std::vector<int> jacob_seq;
+    int a = 1, b = 1;
+    while (b < pending_size) {
+        jacob_seq.push_back(b);
+        int next = b + 2 * a;
+        a = b;
+        b = next;
+    }
+
+    // 2. Build the insertion sequence using the Jacobsthal numbers
+    int last_jacob = 1;
+    sequence.push_back(0); // Always insert the first pending element first
+
+    for (size_t i = 0; i < jacob_seq.size(); ++i) {
+        int current_jacob = jacob_seq[i];
+        
+        // Add indices from the current Jacobsthal number down to the last one
+        for (int j = current_jacob - 1; j >= last_jacob; --j) {
+            if (j < pending_size) { // Make sure we don't go out of bounds
+                sequence.push_back(j);
+            }
+        }
+        last_jacob = current_jacob;
+    }
+
+    // 3. Add any remaining elements not covered by the Jacobsthal sequence
+    for (int i = last_jacob; i < pending_size; ++i) {
+        sequence.push_back(i);
+    }
+
+    return sequence;
+}
+
+void PmergeMe::sort_vector(std::vector<int> &input){
+    std::vector<int> main_chain;
+    std::vector<int> pending; // I added the semicolon here for you
+
+    if (input.size() <= 1)
+        return;
+
+    // ... (your pairing logic is correct, no changes needed here)
+    for (size_t i = 0; i + 1 < input.size(); i += 2){
+        int a = input[i];
+        int b = input[i+1];
+        if (a > b) {
+            main_chain.push_back(a);
+            pending.push_back(b);
+        } else {
+            main_chain.push_back(b);
+            pending.push_back(a);
+        }
+    }
+    if (input.size() % 2 != 0)
+        pending.push_back(input.back());
+    
+    // Recursively sort the main_chain
+    sort_vector(main_chain);
+
+    // -- THIS IS THE PART YOU CHANGE --
+
+    // 1. Get the optimal insertion order
+    std::vector<int> insertion_sequence = buildInsertionSequence(pending.size());
+
+    // 2. Insert the first element (which has a known small position)
+    // The sequence already starts with 0, but it's good practice to know the first one
+    // is special. Here we can just trust the sequence.
+    
+    // 3. Loop using the smart sequence
+    for (size_t i = 0; i < insertion_sequence.size(); ++i) {
+        int index_from_pending = insertion_sequence[i];
+        binaryInsert_vector(main_chain, pending[index_from_pending]);
+    }
+
+    input = main_chain;
+}
