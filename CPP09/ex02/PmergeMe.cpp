@@ -12,19 +12,19 @@ PmergeMe::PmergeMe(std::string input){
     
     this->parse_input(input);
 
-    clock_t start = clock();
+    clock_t vector_start = clock();
     this->sort_vector(_vector);
-    clock_t end = clock();
+    clock_t vector_end = clock();
     
-    clock_t start1 = clock();
+    clock_t deque_start = clock();
     this->sort_deque(_deque);
-    clock_t end1 = clock();
+    clock_t deque_end = clock();
 
-    double duration = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
-    double duration1 = static_cast<double>(end1 - start1) / CLOCKS_PER_SEC * 1000000;
+    double vector_duration = static_cast<double>(vector_end - vector_start) / CLOCKS_PER_SEC * 10;
+    double deque_duration = static_cast<double>(deque_end - deque_start) / CLOCKS_PER_SEC * 10;
     
-    this->print_vec(duration);
-    this->print_deque(duration1);
+    this->print_vec(vector_duration);
+    this->print_deque(deque_duration);
 }
 
 PmergeMe::PmergeMe(const PmergeMe &copy){
@@ -33,7 +33,11 @@ PmergeMe::PmergeMe(const PmergeMe &copy){
 
 
 PmergeMe &PmergeMe::operator=(const PmergeMe &copy){
-    (void)copy;
+    if (this != &copy)
+    {
+        this->_vector = copy._vector;
+        this->_deque = copy._deque;
+    }
     return (*this);
 }
 
@@ -66,10 +70,6 @@ void PmergeMe::parse_input(const std::string &input)
     std::cout << "Before: ";
     for(size_t i = 0; i < _vector.size(); ++i)
         std::cout << _vector[i] << " ";
-    std::cout << std::endl;
-    std::cout << "Before: ";
-    for(size_t i = 0; i < _deque.size(); ++i)
-        std::cout << _deque[i] << " ";
     std::cout << std::endl;
 }
 
@@ -219,23 +219,18 @@ void PmergeMe::sort_deque(std::deque<int> &input){
         binaryInsert_deque(main_chain, pending[idx]);
     }
     input = main_chain;
-    return;
 }
 
-void PmergeMe::print_vec(double duration){
+void PmergeMe::print_vec(double vector_duration){
     std::cout << "After: ";
     for(size_t i = 0; i < _vector.size(); ++i)
         std::cout << _vector[i] << " ";
     std::cout << std::endl;
     std::cout << "Time to process a range of " << _vector.size()
-              << " elements with std::vector : " << duration << " us" << std::endl;
+              << " elements with std::vector : " << vector_duration << " us" << std::endl;
 }
 
-void PmergeMe::print_deque(double duration1){
-    std::cout << "After: ";
-    for(size_t i = 0; i < _deque.size(); ++i)
-        std::cout << _deque[i] << " ";
-    std::cout << std::endl;
+void PmergeMe::print_deque(double deque_duration){
     std::cout << "Time to process a range of " << _deque.size()
-              << " elements with std::deque : " << duration1 << " us" << std::endl;
+              << " elements with std::deque : " << deque_duration << " us" << std::endl;
 }

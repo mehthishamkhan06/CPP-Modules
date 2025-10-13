@@ -17,8 +17,8 @@ class PmergeMe{
     private:
         void sort_vector(std::vector<int> &input);
         void sort_deque(std::deque<int> &input);
-        void print_vec(double duration);
-        void print_deque(double duration1);
+        void print_vec(double vector_duration);
+        void print_deque(double deque_duration);
         void parse_input(const std::string &input);
         void binaryInsert_vector(std::vector<int>& container, int value);
         void binaryInsert_deque(std::deque<int>& container, int value);
