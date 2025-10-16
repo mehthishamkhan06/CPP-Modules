@@ -193,7 +193,6 @@ void BitcoinExchange::validate_file(std::string file_name)
             continue;
         else
             this->calculate(value, date);
-        // std::cout << line << std::endl;
     }
     file.close();
 }   

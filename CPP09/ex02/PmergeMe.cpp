@@ -8,25 +8,6 @@ PmergeMe::~PmergeMe(){
 
 }
 
-PmergeMe::PmergeMe(std::string input){
-    
-    this->parse_input(input);
-
-    clock_t vector_start = clock();
-    this->sort_vector(_vector);
-    clock_t vector_end = clock();
-    
-    clock_t deque_start = clock();
-    this->sort_deque(_deque);
-    clock_t deque_end = clock();
-
-    double vector_duration = static_cast<double>(vector_end - vector_start) / CLOCKS_PER_SEC * 10;
-    double deque_duration = static_cast<double>(deque_end - deque_start) / CLOCKS_PER_SEC * 10;
-    
-    this->print_vec(vector_duration);
-    this->print_deque(deque_duration);
-}
-
 PmergeMe::PmergeMe(const PmergeMe &copy){
     *this = copy;
 }
@@ -40,6 +21,26 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &copy){
     }
     return (*this);
 }
+
+PmergeMe::PmergeMe(std::string input){
+    
+    this->parse_input(input);
+
+    clock_t vector_start = clock();
+    this->sort_vector(_vector);
+    clock_t vector_end = clock();
+    
+    clock_t deque_start = clock();
+    this->sort_deque(_deque);
+    clock_t deque_end = clock();
+
+    double vector_duration = (static_cast<double>(vector_end - vector_start) / CLOCKS_PER_SEC) * 1000000;
+    double deque_duration = (static_cast<double>(deque_end - deque_start) / CLOCKS_PER_SEC) * 1000000;
+    
+    this->print_vec(vector_duration);
+    this->print_deque(deque_duration);
+}
+
 
 void PmergeMe::parse_input(const std::string &input)
 {
@@ -92,7 +93,7 @@ void PmergeMe::binaryInsert_deque(std::deque<int>& container, int value) {
 std::vector<int> PmergeMe::buildInsertionSequence_vector(int pendingSize) {
     std::vector<int> seq;
     if (pendingSize <= 0)
-        return seq;
+        return (seq);
     std::vector<int> jacob_seq;
     int a = 1;
     int b = 1;
@@ -104,7 +105,7 @@ std::vector<int> PmergeMe::buildInsertionSequence_vector(int pendingSize) {
     }
 
     int last_index = 1;
-    seq.push_back(0); // First element is always 0 Speacial Case..!
+    seq.push_back(0);
 
     for (size_t i = 0; i < jacob_seq.size(); ++i) {
         int current = jacob_seq[i];
@@ -119,13 +120,13 @@ std::vector<int> PmergeMe::buildInsertionSequence_vector(int pendingSize) {
         seq.push_back(i);
     }
 
-    return seq;
+    return (seq);
 }
 
 std::deque<int> PmergeMe::buildInsertionSequence_deque(int pendingSize) {
     std::deque<int> seq;
     if (pendingSize <= 0)
-        return seq;
+        return (seq);
     std::deque<int> jacob_seq;
     int a = 1;
     int b = 1;
@@ -137,7 +138,7 @@ std::deque<int> PmergeMe::buildInsertionSequence_deque(int pendingSize) {
     }
 
     int last_index = 1;
-    seq.push_back(0); // First element is always 0 Speacial Case..!
+    seq.push_back(0);
 
     for (size_t i = 0; i < jacob_seq.size(); ++i) {
         int current = jacob_seq[i];
@@ -152,7 +153,7 @@ std::deque<int> PmergeMe::buildInsertionSequence_deque(int pendingSize) {
         seq.push_back(i);
     }
 
-    return seq;
+    return (seq);
 }
 
 
