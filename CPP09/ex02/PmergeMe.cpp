@@ -20,9 +20,9 @@ PmergeMe::PmergeMe(std::string input){
     this->sort_deque(_deque);
     clock_t deque_end = clock();
 
-    double vector_duration = static_cast<double>(vector_end - vector_start) / CLOCKS_PER_SEC * 10;
-    double deque_duration = static_cast<double>(deque_end - deque_start) / CLOCKS_PER_SEC * 10;
-    
+    double vector_duration = (static_cast<double>(vector_end - vector_start) / CLOCKS_PER_SEC) * 10;
+    double deque_duration = (static_cast<double>(deque_end - deque_start) / CLOCKS_PER_SEC) * 10;
+
     this->print_vec(vector_duration);
     this->print_deque(deque_duration);
 }
