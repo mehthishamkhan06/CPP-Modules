@@ -1,6 +1,6 @@
 #include "Point.hpp"
 
-bool bsp(const Point a, const Point b, const Point c, const Point point) {
+bool bsp(Point const a, Point const b, Point const c, Point const point) {
     Fixed areaABC = (b.getX() - a.getX()) * (c.getY() - a.getY()) - (c.getX() - a.getX()) * (b.getY() - a.getY());
     Fixed areaPAB = (b.getX() - point.getX()) * (a.getY() - point.getY()) - (a.getX() - point.getX()) * (b.getY() - point.getY());
     Fixed areaPBC = (c.getX() - point.getX()) * (b.getY() - point.getY()) - (b.getX() - point.getX()) * (c.getY() - point.getY());

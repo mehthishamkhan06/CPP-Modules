@@ -1,6 +1,6 @@
 #include "Point.hpp"
 
-bool bsp(const Point a, const Point b, const Point c, const Point point);
+bool bsp(Point const a, Point const b, Point const c, Point const point);
 int main() {
     Point a(0.0f, 0.0f);
     Point b(5.0f, 0.0f);
