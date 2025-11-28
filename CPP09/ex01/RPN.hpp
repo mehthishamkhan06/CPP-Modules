@@ -6,7 +6,7 @@
 
 class RPN {
     private:
-        std::stack<int> _stack;
+        std::stack<double> _stack;
         void validate(std::string rpn);
         int evaluate(std::string rpn);
     public:
